@@ -16,14 +16,18 @@ body { margin: 0; padding: 0; }
 <script>
     // Read params
     const params = new URLSearchParams(window.location.search);
+    const initial = params.has('marker1') ? params.get('marker1').split(',').map(Number) : [12.554729, 55.70651];
 	
     // Load map 
 	mapboxgl.accessToken = 'pk.eyJ1IjoiY2VzYXI5MyIsImEiOiJjbG11ejR3NjUwaTdzMnJ2emZ5eDBpcWIxIn0.iTwB4qkQ74N5N_xSW17X_g';
     const map = new mapboxgl.Map({
         container: 'map', // container ID
         style: "mapbox://styles/cesar93/clmqoqolq026a01pb87t62gpm",
-        center: [-74.5, 40], // starting position [lng, lat]
-        zoom: 9 // starting zoom
+        center: initial, // starting position [lng, lat]
+        zoom: 5.5, // starting zoom
+        preserveDrawingBuffer: true,
+        attributionControl: false,
+        minZoom: 6,
     });
 
     // Marker 1 coordinates from URL or default
