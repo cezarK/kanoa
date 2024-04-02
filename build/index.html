@@ -21,35 +21,6 @@ body { margin: 0; padding: 0; }
         center: [-74.5, 40], // starting position [lng, lat]
         zoom: 9 // starting zoom
     });
-	map.on("load", () => {
-                // Add the specific layer from your tileset
-                map.addSource("features", {
-                    type: "vector",
-                    url: "mapbox://cesar93.clnjeq0ud15gg2oof87nwapcq-0pbje",
-                })
-
-                map.addLayer({
-                    id: "feature-layer",
-                    type: "fill",
-                    source: "features",
-                    "source-layer": "new3",
-                    paint: {
-                        "fill-color": "#7E5EFF",
-                        "fill-opacity": 0.5,
-                    },
-                })
-
-                map.addLayer({
-                    id: "feature-outline-layer",
-                    type: "line",
-                    source: "features",
-                    "source-layer": "new3",
-                    paint: {
-                        "line-color": "#111013",
-                        "line-width": 2,
-                    },
-                })
-	})
 
        // Create a default Marker and add it to the map.
     const marker1 = new mapboxgl.Marker()
