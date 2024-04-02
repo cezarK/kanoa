@@ -24,11 +24,16 @@ body { margin: 0; padding: 0; }
         container: 'map', // container ID
         style: "mapbox://styles/cesar93/clmqoqolq026a01pb87t62gpm",
         center: initial, // starting position [lng, lat]
-        zoom: 10, // starting zoom
+        zoom: 9, // starting zoom
         preserveDrawingBuffer: true,
         attributionControl: false,
         minZoom: 8,
     });
+    // disable map zoom when using scroll
+    map.scrollZoom.disable();
+
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
 
     // Marker 1 coordinates from URL or default
     const marker1Coords = params.has('marker1') ? params.get('marker1').split(',').map(Number) : [12.554729, 55.70651];
