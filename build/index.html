@@ -52,35 +52,51 @@ body { margin: 0; padding: 0; }
     // Add zoom and rotation controls to the map.
     map.addControl(new mapboxgl.NavigationControl());
 
+    // Define markers data
+    const markers = [
+        { coords: [12.554729, 55.70651], title: 'Marker 1', description: 'This is marker 1.' },
+        { coords: [12.65147, 55.608166], title: 'Marker 2', description: 'This is marker 2.' },
+        { coords: [12.590101, 55.679143], title: 'Marker 3', description: 'This is marker 3.' }
+    ];
+
+
   // Define the popup here, to be used with all markers
     const popup = new mapboxgl.Popup({
         closeButton: false,
         closeOnClick: false
     });
 
-    markers.forEach(marker => {
-        const el = document.createElement('div');
-        el.className = 'marker';
-
-        // Create the marker as before
-        const newMarker = new mapboxgl.Marker(el)
-            .setLngLat(marker.coords)
-            .addTo(map);
-
-        // Add event listeners for this marker
-        el.addEventListener('mouseenter', () => {
-            // Change the cursor style as a UI indicator.
-            map.getCanvas().style.cursor = 'pointer';
-
-            // Use the marker's coordinates and description
-            popup.setLngLat(marker.coords)
-                  .setHTML(`<h3>${marker.title}</h3><p>${marker.description}</p>`)
-                  .addTo(map);
+   map.on('load', function() {
+        // Define the popup
+        const popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
         });
 
-        el.addEventListener('mouseleave', () => {
-            map.getCanvas().style.cursor = '';
-            popup.remove();
+        // Add markers to the map
+        markers.forEach(marker => {
+            const el = document.createElement('div');
+            el.className = 'marker';
+
+            const newMarker = new mapboxgl.Marker(el)
+                .setLngLat(marker.coords)
+                .addTo(map);
+
+            // Add event listeners for this marker
+            el.addEventListener('mouseenter', () => {
+                // Change the cursor style as a UI indicator.
+                map.getCanvas().style.cursor = 'pointer';
+
+                // Use the marker's coordinates and description
+                popup.setLngLat(marker.coords)
+                    .setHTML(`<h3>${marker.title}</h3><p>${marker.description}</p>`)
+                    .addTo(map);
+            });
+
+            el.addEventListener('mouseleave', () => {
+                map.getCanvas().style.cursor = '';
+                popup.remove();
+            });
         });
     });
 </script>
