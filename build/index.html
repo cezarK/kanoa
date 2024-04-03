@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Display a map on a webpage</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css?family=Lexend" rel="stylesheet"/>
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
 <style>
@@ -20,10 +20,11 @@ body { margin: 0; padding: 0; }
 }
 .mapboxgl-popup {
     max-width: 200px;
+    closeButton: false;
 }
 .mapboxgl-popup-content {
     text-align: center;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Lexend', sans-serif;
 }
 </style>
 </head>
@@ -53,9 +54,9 @@ body { margin: 0; padding: 0; }
     map.addControl(new mapboxgl.NavigationControl());
 
     const markers = [
-        { coords: params.has('marker1') ? params.get('marker1').split(',').map(Number) : [12.554729, 55.70651], title: 'Start Location', description: 'This is the start location.' },
-        { coords: params.has('marker2') ? params.get('marker2').split(',').map(Number) : [12.65147, 55.608166], title: 'Stop Location', description: 'This is the stop location.' },
-        { coords: params.has('marker3') ? params.get('marker3').split(',').map(Number) : [12.554729, 55.70651], title: 'Parking Location', description: 'This is the parking location.' }
+        { coords: params.has('marker1') ? params.get('marker1').split(',').map(Number) : [12.554729, 55.70651], title: 'Start', description: 'Początek spływu' },
+        { coords: params.has('marker2') ? params.get('marker2').split(',').map(Number) : [12.65147, 55.608166], title: 'Meta', description: 'Koniec spływu' },
+        { coords: params.has('marker3') ? params.get('marker3').split(',').map(Number) : [12.554729, 55.70651], title: 'Miejsce zbiórki', description: 'Parking' }
     ];
 
     markers.forEach(marker => {
