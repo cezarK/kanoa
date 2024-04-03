@@ -63,10 +63,8 @@ body { margin: 0; padding: 0; }
         el.className = 'marker';
 
         // Create a popup for each marker without automatically associating it with the marker
-        const popup = new mapboxgl.Popup({ offset: 25 })
+        const popup = new mapboxgl.Popup({ offset: 25, closeButton: false, closeOnClick: false })
             .setHTML(`<h3>${marker.title}</h3><p>${marker.description}</p>`);
-            closeButton: false,
-            closeOnClick: false
 
         
         // Create the marker
