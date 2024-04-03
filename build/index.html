@@ -62,12 +62,25 @@ body { margin: 0; padding: 0; }
         const el = document.createElement('div');
         el.className = 'marker';
 
-        new mapboxgl.Marker(el)
+        // Create a popup for each marker without automatically associating it with the marker
+        const popup = new mapboxgl.Popup({ offset: 25 })
+            .setHTML(`<h3>${marker.title}</h3><p>${marker.description}</p>`);
+        
+        // Create the marker
+        const markerInstance = new mapboxgl.Marker(el)
             .setLngLat(marker.coords)
-            .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-                .setHTML(`<h3>${marker.title}</h3><p>${marker.description}</p>`)
-            )
             .addTo(map);
+
+        // Add mouseenter event to show the popup
+        el.addEventListener('mouseenter', () => {
+            // Ensure the popup is set with the correct position
+            popup.setLngLat(marker.coords).addTo(map);
+        });
+
+        // Add mouseleave event to remove the popup
+        el.addEventListener('mouseleave', () => {
+            popup.remove();
+        });
     });
 </script>
 </body>
