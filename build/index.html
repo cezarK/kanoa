@@ -52,23 +52,38 @@ body { margin: 0; padding: 0; }
     // Add zoom and rotation controls to the map.
     map.addControl(new mapboxgl.NavigationControl());
 
-    const markers = [
-        { coords: params.has('marker1') ? params.get('marker1').split(',').map(Number) : [12.554729, 55.70651], title: 'Start', description: 'Początek spływu' },
-        { coords: params.has('marker2') ? params.get('marker2').split(',').map(Number) : [12.65147, 55.608166], title: 'Meta', description: 'Koniec spływu' },
-        { coords: params.has('marker3') ? params.get('marker3').split(',').map(Number) : [12.554729, 55.70651], title: 'Parking', description: 'Parking' }
-    ];
+  // Define the popup here, to be used with all markers
+    const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
 
     markers.forEach(marker => {
         const el = document.createElement('div');
         el.className = 'marker';
 
-        new mapboxgl.Marker(el)
+        // Create the marker as before
+        const newMarker = new mapboxgl.Marker(el)
             .setLngLat(marker.coords)
-            .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-                .setHTML(`<h3>${marker.title}</h3><p>${marker.description}</p>`)
-            )
             .addTo(map);
+
+        // Add event listeners for this marker
+        el.addEventListener('mouseenter', () => {
+            // Change the cursor style as a UI indicator.
+            map.getCanvas().style.cursor = 'pointer';
+
+            // Use the marker's coordinates and description
+            popup.setLngLat(marker.coords)
+                  .setHTML(`<h3>${marker.title}</h3><p>${marker.description}</p>`)
+                  .addTo(map);
+        });
+
+        el.addEventListener('mouseleave', () => {
+            map.getCanvas().style.cursor = '';
+            popup.remove();
+        });
     });
+</script>
 </script>
 </body>
 </html>
